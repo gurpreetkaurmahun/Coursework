@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using CourseWork.Models;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

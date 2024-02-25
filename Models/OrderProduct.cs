@@ -6,6 +6,7 @@ namespace CourseWork.Models
     public class OrderProduct
     {
         public int OrderProductId { get; set; }
+        
         [ForeignKey("Product")]
         public int ProductId { get; set; }
         public Product Product { get; set; }
