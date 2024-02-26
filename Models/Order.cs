@@ -10,7 +10,8 @@ namespace CourseWork.Models
         public int CustomerId { get; set; }
         public Customer Customer {get;set;}
         public List<Product> products { get; set; }
-
+        [ForeignKey("Cart")]
         public int CartId { get; set; }
+        public Cart Cart{get;set;}
     }
 }
