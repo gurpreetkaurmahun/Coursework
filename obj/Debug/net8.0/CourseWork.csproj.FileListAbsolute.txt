@@ -286,3 +286,4 @@
 /Users/gurpreetkaurmahun/CourseWork/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
 /Users/gurpreetkaurmahun/CourseWork/bin/Debug/net8.0/MailKit.dll
 /Users/gurpreetkaurmahun/CourseWork/bin/Debug/net8.0/MimeKit.dll
+/Users/gurpreetkaurmahun/CourseWork/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
