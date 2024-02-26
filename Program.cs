@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using CourseWork.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<EcommerceContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Connection")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<EcommerceContext>().AddDefaultTokenProviders();
 
 var app = builder.Build();
 

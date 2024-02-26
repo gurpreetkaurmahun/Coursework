@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using CourseWork.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
-public class EcommerceContext : DbContext
+ public class EcommerceContext : IdentityDbContext<IdentityUser>
 {
   
 
