@@ -283,3 +283,6 @@
 /Users/gurpreetkaurmahun/CourseWork/bin/Debug/net8.0/Microsoft.Extensions.Identity.Core.dll
 /Users/gurpreetkaurmahun/CourseWork/bin/Debug/net8.0/Microsoft.Extensions.Identity.Stores.dll
 /Users/gurpreetkaurmahun/CourseWork/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
+/Users/gurpreetkaurmahun/CourseWork/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
+/Users/gurpreetkaurmahun/CourseWork/bin/Debug/net8.0/MailKit.dll
+/Users/gurpreetkaurmahun/CourseWork/bin/Debug/net8.0/MimeKit.dll
