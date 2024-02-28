@@ -17,10 +17,21 @@ using Microsoft.AspNetCore.Identity;
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Product> Products { get; set; }
+    
 
+     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder); 
+       
+        modelBuilder.Entity<Product>()
+                .HasOne(p => p.Category)
+                .WithMany()
+                .HasForeignKey(p => p.CategoryId);
+
+         modelBuilder.Entity<Category>()
+                .HasIndex(c => c.name) // Create an index for the Name property
+                .IsUnique();
 
         modelBuilder.Entity<OrderProduct>()
             .HasKey(op => new { op.ProductId, op.OrderId, op.DateOfOrder });

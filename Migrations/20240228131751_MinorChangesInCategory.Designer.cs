@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CourseWork.Migrations
 {
     [DbContext(typeof(EcommerceContext))]
-    partial class EcommerceContextModelSnapshot : ModelSnapshot
+    [Migration("20240228131751_MinorChangesInCategory")]
+    partial class MinorChangesInCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.2");
@@ -51,9 +54,6 @@ namespace CourseWork.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("CategoryId");
-
-                    b.HasIndex("name")
-                        .IsUnique();
 
                     b.ToTable("Categories");
                 });
@@ -128,6 +128,9 @@ namespace CourseWork.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("CategoryId1")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("OrderId")
                         .HasColumnType("INTEGER");
 
@@ -141,6 +144,8 @@ namespace CourseWork.Migrations
                     b.HasKey("ProductId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("CategoryId1");
 
                     b.HasIndex("OrderId");
 
@@ -402,6 +407,10 @@ namespace CourseWork.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
+                    b.HasOne("CourseWork.Models.Category", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId1");
+
                     b.HasOne("CourseWork.Models.Order", null)
                         .WithMany("products")
                         .HasForeignKey("OrderId");
@@ -458,6 +467,11 @@ namespace CourseWork.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CourseWork.Models.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("CourseWork.Models.Order", b =>

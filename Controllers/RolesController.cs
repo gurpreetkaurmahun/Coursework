@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CourseWork.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Http.Headers;
 
 namespace CourseWork.Controllers
 {
@@ -31,6 +32,8 @@ namespace CourseWork.Controllers
             return Ok(roles);
         }
 
+        
+
         [HttpGet("{roleId}")]
         public async Task<IActionResult> GetRole(string roleId)
         {
@@ -44,6 +47,21 @@ namespace CourseWork.Controllers
             return Ok(role);
         }
 
+        public async Task<bool> IsUserInAdminRole(string userId)
+{
+    // Retrieve the user
+    var user = await _userManager.FindByIdAsync(userId);
+
+    // Check if the user exists
+    if (user != null)
+    {
+        // Check if the user is in the "Admin" role
+        return await _userManager.IsInRoleAsync(user, "Admin");
+    }
+
+    // Return false if the user doesn't exist or if an error occurred
+    return false;
+}
         [HttpPost]
         public async Task<IActionResult> CreateRole([FromBody] string roleName)
         {

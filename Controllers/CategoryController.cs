@@ -74,14 +74,22 @@ namespace CourseWork.Controllers
 
         // POST: api/Category
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
-        {
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
+       [HttpPost]
+public async Task<ActionResult<Category>> PostCategory(Category category)
+{
+    var existingCategory = await _context.Categories.FirstOrDefaultAsync(c => c.name == category.name);
+    if (existingCategory != null)
+    {
+        // Category with the same name already exists, return a conflict response
+        return Conflict("A category with the same name already exists.");
+    }
 
-            return CreatedAtAction("GetCategory", new { id = category.CategoryId }, category);
-        }
+    // No existing category with the same name, proceed with adding the new category
+    _context.Categories.Add(category);
+    await _context.SaveChangesAsync();
+
+    return CreatedAtAction("GetCategory", new { id = category.CategoryId }, category);
+}
 
         // DELETE: api/Category/5
         [HttpDelete("{id}")]
