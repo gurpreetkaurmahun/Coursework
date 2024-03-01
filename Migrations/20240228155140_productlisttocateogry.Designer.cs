@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CourseWork.Migrations
 {
     [DbContext(typeof(EcommerceContext))]
-    partial class EcommerceContextModelSnapshot : ModelSnapshot
+    [Migration("20240228155140_productlisttocateogry")]
+    partial class productlisttocateogry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.2");
@@ -28,11 +31,16 @@ namespace CourseWork.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("OrderId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("CartId");
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Carts", (string)null);
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("CourseWork.Models.Category", b =>
@@ -50,7 +58,7 @@ namespace CourseWork.Migrations
                     b.HasIndex("name")
                         .IsUnique();
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("CourseWork.Models.Customer", b =>
@@ -69,7 +77,7 @@ namespace CourseWork.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("CourseWork.Models.Order", b =>
@@ -78,7 +86,7 @@ namespace CourseWork.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CartId")
+                    b.Property<int>("CartId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CustomerId")
@@ -90,7 +98,7 @@ namespace CourseWork.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("CourseWork.Models.OrderProduct", b =>
@@ -111,7 +119,7 @@ namespace CourseWork.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderProducts", (string)null);
+                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("CourseWork.Models.Product", b =>
@@ -120,7 +128,10 @@ namespace CourseWork.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("CategoryId1")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("OrderId")
@@ -137,9 +148,11 @@ namespace CourseWork.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("CategoryId1");
+
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -342,14 +355,24 @@ namespace CourseWork.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CourseWork.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Customer");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("CourseWork.Models.Order", b =>
                 {
                     b.HasOne("CourseWork.Models.Cart", "Cart")
                         .WithMany()
-                        .HasForeignKey("CartId");
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CourseWork.Models.Customer", "Customer")
                         .WithMany()
@@ -385,9 +408,11 @@ namespace CourseWork.Migrations
                 {
                     b.HasOne("CourseWork.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("CourseWork.Models.Category", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId1");
 
                     b.HasOne("CourseWork.Models.Order", null)
                         .WithMany("products")
@@ -445,6 +470,11 @@ namespace CourseWork.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CourseWork.Models.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("CourseWork.Models.Order", b =>

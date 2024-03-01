@@ -24,10 +24,10 @@ using Microsoft.AspNetCore.Identity;
     {
         base.OnModelCreating(modelBuilder); 
        
-        modelBuilder.Entity<Product>()
-                .HasOne(p => p.Category)
-                .WithMany()
-                .HasForeignKey(p => p.CategoryId);
+         modelBuilder.Entity<Product>()
+        .HasOne(p => p.Category)
+        .WithMany()  // Assuming you have a navigation property 'Products' in your Category class
+        .HasForeignKey(p => p.CategoryId);
 
          modelBuilder.Entity<Category>()
                 .HasIndex(c => c.name) // Create an index for the Name property
@@ -45,5 +45,6 @@ using Microsoft.AspNetCore.Identity;
             .HasOne(op => op.Order)
             .WithMany()
             .HasForeignKey(op => op.OrderId);
-    }
-}
+
+        
+}}

@@ -9,11 +9,11 @@ namespace CourseWork.Models
         
         [ForeignKey("Product")]
         public int ProductId { get; set; }
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
         [ForeignKey("Order")]
         public int OrderId { get ; set; }
-        public Order Order{ get ;set; }
+        public Order? Order{ get ;set; }
 
-        public DateOnly DateOfOrder { get ; set;}
+        public DateOnly? DateOfOrder { get ; set;}
     }
 }

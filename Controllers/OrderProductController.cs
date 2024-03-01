@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CourseWork.Models;
+using System.Globalization;
 
 namespace CourseWork.Controllers
 {
@@ -74,28 +75,80 @@ namespace CourseWork.Controllers
 
         // POST: api/OrderProduct
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<OrderProduct>> PostOrderProduct(OrderProduct orderProduct)
+       [HttpPost]
+       public async Task<ActionResult<OrderProduct>> PostOrderProduct(OrderProduct orderProduct)
         {
-            _context.OrderProducts.Add(orderProduct);
-            try
+            // Check if the ProductId exists
+            if (!await _context.Products.AnyAsync(p => p.ProductId == orderProduct.ProductId))
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (OrderProductExists(orderProduct.ProductId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+                return Conflict($"Product with ID {orderProduct.ProductId} not found.");
             }
 
+            // Check if the OrderId exists
+            if (!await _context.Orders.AnyAsync(o => o.OrderId == orderProduct.OrderId))
+            {
+                return Conflict($"Order with ID {orderProduct.OrderId} not found.");
+            }
+
+            // Check if there is already an entry with the same ProductId, OrderId, and DateOfOrder
+            if (await _context.OrderProducts.AnyAsync(op =>
+                op.ProductId == orderProduct.ProductId &&
+                op.OrderId == orderProduct.OrderId &&
+                op.DateOfOrder == orderProduct.DateOfOrder))
+            {
+                return Conflict($"An order product with the same Product ID, Order ID, and Date Of Order already exists.");
+            }
+
+            // Clear ModelState
+            ModelState.Clear();
+           
+
+
+           
+  
+
+            // Save changes asynchronously
+            await _context.SaveChangesAsync();
+
+            // Return a 201 Created response with the created orderProduct
             return CreatedAtAction("GetOrderProduct", new { id = orderProduct.ProductId }, orderProduct);
         }
+
+       
+
+
+
+
+
+
+      
+
+
+
+
+         
+       
+        // public async Task<ActionResult<OrderProduct>> PostOrderProduct(OrderProduct orderProduct)
+        // {
+        //     _context.OrderProducts.Add(orderProduct);
+        //     try
+        //     {
+        //         await _context.SaveChangesAsync();
+        //     }
+        //     catch (DbUpdateException)
+        //     {
+        //         if (OrderProductExists(orderProduct.ProductId))
+        //         {
+        //             return Conflict();
+        //         }
+        //         else
+        //         {
+        //             throw;
+        //         }
+        //     }
+
+        //     return CreatedAtAction("GetOrderProduct", new { id = orderProduct.ProductId }, orderProduct);
+        // }
 
         // DELETE: api/OrderProduct/5
         [HttpDelete("{id}")]
@@ -117,5 +170,20 @@ namespace CourseWork.Controllers
         {
             return _context.OrderProducts.Any(e => e.ProductId == id);
         }
+
+       private static bool IsValidDate(DateOnly? date)
+{
+    if (date == null)
+    {
+        return false;
+    }
+
+    string dateString = date.Value.ToString("yyyy-MM-dd");
+    return DateOnly.TryParseExact(dateString, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
+}
+
+
+
+
     }
 }

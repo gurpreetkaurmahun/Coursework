@@ -74,15 +74,33 @@ namespace CourseWork.Controllers
 
         // POST: api/Order
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // [HttpPost]
+        // public async Task<ActionResult<Order>> PostOrder(Order order)
+        // {
+        //     _context.Orders.Add(order);
+        //     await _context.SaveChangesAsync();
+
+        //     return CreatedAtAction("GetOrder", new { id = order.OrderId }, order);
+        // }
+
         [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
+       public async Task<ActionResult<Order>> PostProduct(Order order)
         {
+            // Check if a product with the same name already exists in the same category
+            var existingOrder = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == order.OrderId );
+
+            if (existingOrder != null)
+            {
+                // Product with the same name in the same category already exists, return a conflict response
+                return Conflict($"A Order with the name {order.OrderId} is already added to the Cart with id {order.CartId}");
+            }
+
+            // No existing product with the same name in the same category, proceed with adding the new product
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetOrder", new { id = order.OrderId }, order);
         }
-
         // DELETE: api/Order/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(int id)
@@ -90,7 +108,7 @@ namespace CourseWork.Controllers
             var order = await _context.Orders.FindAsync(id);
             if (order == null)
             {
-                return NotFound();
+                return Conflict($"A Order with id {id} not found");
             }
 
             _context.Orders.Remove(order);

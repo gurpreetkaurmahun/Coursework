@@ -77,6 +77,17 @@ namespace CourseWork.Controllers
         [HttpPost]
         public async Task<ActionResult<Cart>> PostCart(Cart cart)
         {
+            var existingCustomer = await _context.Customers.FindAsync(cart.CustomerId);
+            if (existingCustomer == null)
+            {
+                return BadRequest($"Customer with the provided {cart.CustomerId} does not exist.");
+            }
+
+            var existingCart = await _context.Carts.FindAsync(cart.CartId);
+            if (existingCart != null)
+            {
+                return Conflict($"A cart with the provided CartId {cart.CartId} already exists.");
+            }
             _context.Carts.Add(cart);
             await _context.SaveChangesAsync();
 
@@ -90,7 +101,7 @@ namespace CourseWork.Controllers
             var cart = await _context.Carts.FindAsync(id);
             if (cart == null)
             {
-                return NotFound();
+                return Conflict($"A Cart with the ID {id} cannot be found");
             }
 
             _context.Carts.Remove(cart);
@@ -98,6 +109,8 @@ namespace CourseWork.Controllers
 
             return NoContent();
         }
+
+        
 
         private bool CartExists(int id)
         {

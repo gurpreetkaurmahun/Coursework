@@ -76,14 +76,36 @@ namespace CourseWork.Controllers
 
         // POST: api/Product
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        // [HttpPost]
+        // public async Task<ActionResult<Product>> PostProduct(Product product)
+        // {
+        //     _context.Products.Add(product);
+        //     await _context.SaveChangesAsync();
+
+        //     return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
+        // }
+
+       [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
+            // Check if a product with the same name already exists in the same category
+            var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.name == product.name || p.CategoryId == product.CategoryId);
+            var products = await _context.Products.Include(p => p.Category).ToListAsync();
+            if (existingProduct != null)
+            {
+                
+                 return Conflict(new { Message = $"A product with the name '{product.name}' already exists in the category '{existingProduct.Category.name}'.", ExistingProducts = products });
+            }
+
+            // No existing product with the same name in the same category, proceed with adding the new product
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
         }
+
+
+
 
         // DELETE: api/Product/5
         [HttpDelete("{id}")]
@@ -92,7 +114,7 @@ namespace CourseWork.Controllers
             var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
-                return NotFound();
+                return Conflict($"A product with the ID {id} cannot be found");
             }
 
             _context.Products.Remove(product);

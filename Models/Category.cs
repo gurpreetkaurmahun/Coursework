@@ -8,6 +8,10 @@ namespace CourseWork.Models
     {
         public int CategoryId { get; set; }
         public string name{ get; set; }
+       
+
+
+       
 
        
     }

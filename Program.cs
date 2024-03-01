@@ -77,6 +77,12 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
+app.MapGet("/Test", async (ILogger<Program> logger, HttpResponse response) =>
+{
+    logger.LogInformation("Testing logging in Program.cs");
+    await response.WriteAsync("Testing");
+});
+
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
