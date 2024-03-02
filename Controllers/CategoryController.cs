@@ -79,12 +79,15 @@ namespace CourseWork.Controllers
        [HttpPost]
         public async Task<ActionResult<Category>> PostCategory(Category category)
         {
-            var existingCategory = await _context.Categories.FirstOrDefaultAsync(c => c.name == category.name);
+            
+            var existingCategory = await _context.Categories.FirstOrDefaultAsync(c => c.name == category.name || c.CategoryId == category.CategoryId);
+            var categories =   await _context.Categories.ToListAsync();
             if (existingCategory != null)
             {
                 // Category with the same name already exists, return a conflict response
-                return Conflict($"A category with the {category.name} already exists.");
-            }
+                
+                return Conflict(new { Message = $"A category with the name {category.name} or with ID {category.CategoryId}  already exists.", ExistingCategories = categories });}
+            
 
             // No existing category with the same name, proceed with adding the new category
             _context.Categories.Add(category);
@@ -110,7 +113,7 @@ namespace CourseWork.Controllers
             if (associatedProducts.Any())
             {
                 // If there are associated products, return a conflict response
-                return Conflict($"Cannot delete category '{category.name}' because it has associated products.");
+                return Conflict($"Cannot delete category '{category.CategoryId}' because it has associated products.");
             }
 
             // If there are no associated products, proceed with deleting the category

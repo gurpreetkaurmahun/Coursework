@@ -37,7 +37,7 @@ namespace CourseWork.Controllers
 
             if (product == null)
             {
-                return NotFound();
+                return Conflict($"A product with the ID {id} cannot be found");
             }
 
             return product;
@@ -74,22 +74,15 @@ namespace CourseWork.Controllers
             return NoContent();
         }
 
-        // POST: api/Product
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        // [HttpPost]
-        // public async Task<ActionResult<Product>> PostProduct(Product product)
-        // {
-        //     _context.Products.Add(product);
-        //     await _context.SaveChangesAsync();
-
-        //     return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
-        // }
+     
 
        [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
             // Check if a product with the same name already exists in the same category
-            var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.name == product.name || p.CategoryId == product.CategoryId);
+            var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.name == product.name );
+
+            //creating list of products to display to the user the list of existing categories
             var products = await _context.Products.Include(p => p.Category).ToListAsync();
             if (existingProduct != null)
             {

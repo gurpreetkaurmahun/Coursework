@@ -130,6 +130,32 @@ namespace CourseWork.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAccount(string userId)
+        {
+            // Find the user by user ID
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return BadRequest("User not found.");
+            }
+
+            // Delete the user account
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                // Optionally, you can sign the user out if they are logged in
+                // await _signInManager.SignOutAsync();
+
+                return Ok("User account deleted successfully.");
+            }
+
+            // If account deletion fails, return the error messages
+            return BadRequest(result.Errors);
+        }
+
+
+
 
     }
 
