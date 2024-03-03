@@ -28,8 +28,8 @@ namespace CourseWork.Controllers
             return await _context.OrderProducts.ToListAsync();
         }
 
-        // GET: api/OrderProduct/5/2/2023-12/21 Where 5 is poductid, 2 is orderid, and dateoforder is date on which order is placed.
-        // these 3 values are passed because OrderProduct is a link table and these 3 ids are a  composite key
+        // GET: api/OrderProduct/5/2/2023-12/21 Where 5 is productid, 2 is orderid, and dateoforder is date on which order is placed.
+        // these 3 values are passed to the Route because OrderProduct is a link table and these 3 ids are a  composite key
         [HttpGet("{productId}/{orderId}/{dateOfOrder}")]
         public async Task<ActionResult<OrderProduct>> GetOrderProduct(int productId, int orderId, DateOnly dateOfOrder)
         {
@@ -45,6 +45,7 @@ namespace CourseWork.Controllers
 
 
         // PUT: api/OrderProduct/5
+        
     
         [HttpPut("{productId}/{orderId}/{dateOfOrder}")]
         public async Task<IActionResult> PutOrderProduct(int productId, int orderId, DateOnly dateOfOrder, int orderProductId, OrderProduct orderProduct)
@@ -85,22 +86,26 @@ namespace CourseWork.Controllers
         public async Task<ActionResult<OrderProduct>> PostOrderProduct(OrderProduct orderProduct)
         {
             
+                 // Checking if an OrderProduct with the same ProductId, OrderId, and DateOfOrder already exists
                 if (await _context.OrderProducts.AnyAsync(op =>
                 op.ProductId == orderProduct.ProductId &&
                 op.OrderId == orderProduct.OrderId &&
                 op.DateOfOrder == orderProduct.DateOfOrder))
                 {
+                    // Returning a Conflict response if an order product with the same attributes already exists
                     return Conflict($"An order product with  ProductId {orderProduct.ProductId},OrderId {orderProduct.OrderId}, and DateOfOrder {orderProduct.DateOfOrder} already exists.");
                 }
                 // Check if the ProductId exists
                 if (!await _context.Products.AnyAsync(p => p.ProductId == orderProduct.ProductId))
                 {
+                    // Returning a Conflict response if the ProductId does not exist in the Product Table
                     return Conflict($"Product with ID {orderProduct.ProductId} not found and it does not exist in Product Table");
                 }
 
                 // Check if the OrderId exists
                 if (!await _context.Orders.AnyAsync(o => o.OrderId == orderProduct.OrderId))
                 {
+                    // Returning a Conflict response if the OrderId does not exist in the Order Table
                     return Conflict($"Order with ID {orderProduct.OrderId} not found and it does not exist in Order Table");
                 }
 
@@ -122,15 +127,19 @@ namespace CourseWork.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrderProduct(int id)
         {
+             // Finding the OrderProduct entry in the database based on the provided ID
             var orderProduct = await _context.OrderProducts.FindAsync(id);
             if (orderProduct == null)
             {
+                 // Returning a NotFound response if the OrderProduct with the provided ID cannot be found
                 return NotFound();
             }
 
+            // Removing the OrderProduct entry from the context
             _context.OrderProducts.Remove(orderProduct);
             await _context.SaveChangesAsync();
 
+            // Returning a response indicating successful deletion of the OrderProduct
             return NoContent();
         }
 

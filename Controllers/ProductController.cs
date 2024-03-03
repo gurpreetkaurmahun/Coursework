@@ -48,11 +48,14 @@ namespace CourseWork.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product product)
         {
-            if (id != )
+            // Checking if the provided ID matches the ProductId of the product object
+            if (id != product.ProductId)
             {
+                 // Returning a BadRequest response if the IDs do not match
                 return BadRequest();
             }
 
+             // Setting the state of the product object in the context to Modified
             _context.Entry(product).State = EntityState.Modified;
 
             try
@@ -71,7 +74,9 @@ namespace CourseWork.Controllers
                 }
             }
 
-            return Ok(new { message = $"Changes made to  account with ProductId{product.ProductId}" });
+            // Returning an Ok response indicating successful update of the product
+            // Also providing a message indicating the changes made
+            return Ok(new { message = $"Changes made to ProductId {product.ProductId}" });
         }
 
      
@@ -104,15 +109,19 @@ namespace CourseWork.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
+            // Finding the product entry in the database based on the provided ID
             var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
+                // Returning a Conflict response if the product with the provided ID cannot be found
                 return Conflict($"A product with the ID {id} cannot be found");
             }
 
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
 
+
+            // Returning a response indicating successful deletion of the product
             return NoContent();
         }
 

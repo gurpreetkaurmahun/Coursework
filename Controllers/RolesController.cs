@@ -128,8 +128,8 @@ namespace CourseWork.Controllers
         public async Task<IActionResult> AssignRoleToUser([FromBody] AssignRoleModel model)
         {
             var user = await _userManager.FindByIdAsync(model.UserId);
-            Console.WriteLine(user);
-             Console.WriteLine("Incoming Request Body: " + JsonConvert.SerializeObject(model));
+            
+            Console.WriteLine("Incoming Request Body: " + JsonConvert.SerializeObject(model));
 
             if (user == null)
             {

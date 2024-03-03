@@ -31,10 +31,12 @@ namespace CourseWork.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(int id)
         {
+            // Finding the customer entry in the database based on the provided ID
             var customer = await _context.Customers.FindAsync(id);
 
             if (customer == null)
             {
+                // Returning a NotFound response if the customer with the provided ID cannot be found
                 return NotFound();
             }
 
@@ -46,8 +48,10 @@ namespace CourseWork.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomer(int id, Customer customer)
         {
+             // Checking if the provided ID matches the CustomerId of the customer object
             if (id != customer.CustomerId)
             {
+                 // Returning a BadRequest response if the IDs do not match
                 return BadRequest();
             }
 
@@ -69,16 +73,22 @@ namespace CourseWork.Controllers
                 }
             }
 
+             // Returning an Ok response indicating successful update of the customer
+            // Also providing a message indicating the changes made
             return Ok(new { message = $"Changes made to account with CustomerId {customer.CustomerId}" }) ;
         }
 
         // POST: api/Customer
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
         [HttpPost]
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
+             // Adding the customer object to the context
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
+
+             // Returning a response indicating successful creation of the customer
+            // Also providing the URI for accessing the newly created customer
 
             return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
         }
@@ -90,7 +100,7 @@ namespace CourseWork.Controllers
             var customer = await _context.Customers.FindAsync(id);
             if (customer == null)
             {
-                return NotFound();
+                Conflict($"A Customer with the ID {customer.CustomerId } cannot be found");
             }
 
             _context.Customers.Remove(customer);
