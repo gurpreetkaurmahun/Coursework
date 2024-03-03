@@ -48,7 +48,7 @@ namespace CourseWork.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product product)
         {
-            if (id != product.ProductId)
+            if (id != )
             {
                 return BadRequest();
             }
@@ -71,7 +71,7 @@ namespace CourseWork.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(new { message = $"Changes made to  account with ProductId{product.ProductId}" });
         }
 
      

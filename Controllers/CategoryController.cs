@@ -71,7 +71,7 @@ namespace CourseWork.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(new { message = $"Changes made to  account with CategoryId {category.CategoryId}" });
         }
 
         // POST: api/Category

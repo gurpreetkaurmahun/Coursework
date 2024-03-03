@@ -29,7 +29,7 @@ namespace CourseWork.Controllers
         }
 
         // GET: api/OrderProduct/5/2/2023-12/21 Where 5 is poductid, 2 is orderid, and dateoforder is date on which order is placed.
-        // these 3 values are passed because OrderProduct is a link table and these 3 ids are a form of composite key
+        // these 3 values are passed because OrderProduct is a link table and these 3 ids are a  composite key
         [HttpGet("{productId}/{orderId}/{dateOfOrder}")]
         public async Task<ActionResult<OrderProduct>> GetOrderProduct(int productId, int orderId, DateOnly dateOfOrder)
         {
@@ -37,7 +37,7 @@ namespace CourseWork.Controllers
 
             if (orderProduct == null)
             {
-                return NotFound($"An OrderProduct with ProductId {productId}, OrderId {orderId}, and DateOfOrder {dateOfOrder} does not exist");
+                return NotFound($"An OrderProduct with ProductId {productId}, OrderId {orderId}, and DateOfOrder {dateOfOrder} does not match the composite key values.");
             }
 
             return orderProduct;
@@ -45,14 +45,17 @@ namespace CourseWork.Controllers
 
 
         // PUT: api/OrderProduct/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    
         [HttpPut("{productId}/{orderId}/{dateOfOrder}")]
         public async Task<IActionResult> PutOrderProduct(int productId, int orderId, DateOnly dateOfOrder, int orderProductId, OrderProduct orderProduct)
         {
-             if (orderProductId != orderProduct.OrderProductId || productId != orderProduct.ProductId || orderId != orderProduct.OrderId || dateOfOrder != orderProduct.DateOfOrder)
-            {
-                return BadRequest("The provided data does not match the composite key values.");
-            }
+            if (
+            productId != orderProduct.ProductId &&
+            orderId != orderProduct.OrderId &&
+            dateOfOrder != orderProduct.DateOfOrder)
+        {
+            return BadRequest("The provided data does not match the composite key values.");
+        }
 
             _context.Entry(orderProduct).State = EntityState.Modified;
 
@@ -76,7 +79,7 @@ namespace CourseWork.Controllers
         }
 
         // POST: api/OrderProduct
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+       
        [HttpPost]
 
         public async Task<ActionResult<OrderProduct>> PostOrderProduct(OrderProduct orderProduct)
@@ -135,9 +138,6 @@ namespace CourseWork.Controllers
         {
             return _context.OrderProducts.Any(e => e.ProductId == id);
         }
-
-   
-
 
 
 

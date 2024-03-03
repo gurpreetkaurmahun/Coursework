@@ -79,7 +79,7 @@ app.MapGet("/weatherforecast", () =>
 
 app.MapGet("/Test", async (ILogger<Program> logger, HttpResponse response) =>
 {
-    logger.LogInformation("Testing logging in Program.cs");
+    logger.LogInformation("Testing logging in Ecommerce Backend Service");
     await response.WriteAsync("Testing");
 });
 

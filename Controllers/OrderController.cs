@@ -69,19 +69,9 @@ namespace CourseWork.Controllers
                 }
             }
 
-            return NoContent();
+            return  Ok(new { message = $"Changes made to account with orderId {order.OrderId}" });
         }
 
-        // POST: api/Order
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        // [HttpPost]
-        // public async Task<ActionResult<Order>> PostOrder(Order order)
-        // {
-        //     _context.Orders.Add(order);
-        //     await _context.SaveChangesAsync();
-
-        //     return CreatedAtAction("GetOrder", new { id = order.OrderId }, order);
-        // }
 
         [HttpPost]
        public async Task<ActionResult<Order>> PostProduct(Order order)
@@ -92,7 +82,7 @@ namespace CourseWork.Controllers
             if (existingOrder != null)
             {
                 // Product with the same name in the same category already exists, return a conflict response
-                return Conflict($"A Order with the name {order.OrderId} is already added to the Cart with id {order.CartId}");
+                return Conflict($"A Order with the OREDERID {order.OrderId} is already added to the Cart with id {order.CartId}");
             }
 
             // No existing product with the same name in the same category, proceed with adding the new product

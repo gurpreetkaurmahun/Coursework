@@ -81,18 +81,7 @@ namespace CourseWork.Controllers
 
             return BadRequest(result.Errors);
         }
-        // public async Task<IActionResult> CreateRole([FromBody] string roleName)
-        // {
-        //     var role = new IdentityRole(roleName);
-        //     var result = await _roleManager.CreateAsync(role);
-
-        //     if (result.Succeeded)
-        //     {
-        //         return Ok("Role created successfully.");
-        //     }
-
-        //     return BadRequest(result.Errors);
-        // }
+       
 
         [HttpPut]
         public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleModel model)
