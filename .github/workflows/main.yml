@@ -11,27 +11,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Use Node.js 20.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
 
       - name: Restore
-        run: dotnet restore ./CourseWork.sln
+        run: dotnet restore ./Coursework.sln || true
 
       - name: Build
-        run: dotnet build ./CourseWork.sln --configuration Release --no-restore
+        run: dotnet build ./Coursework.sln --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish ./CourseWork.sln --configuration Release --no-build
+        run: dotnet publish ./Coursework.sln --configuration Release --no-build
 
 
 
