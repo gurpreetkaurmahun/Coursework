@@ -25,13 +25,14 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore
-        run: dotnet restore Coursework.csproj || true
+        run: dotnet restore CourseWork.csproj || true
 
       - name: Build
-        run: dotnet build Coursework.csproj --configuration Release --no-restore
+        run: dotnet build CourseWork.csproj --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish Coursework.csproj --configuration Release --no-build
+        run: dotnet publish CourseWork.csproj --configuration Release --no-build
+
 
 
 
