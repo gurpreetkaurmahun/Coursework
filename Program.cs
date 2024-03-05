@@ -84,7 +84,7 @@ app.MapGet("/weatherforecast", () =>
 app.MapGet("/Test", async (ILogger<Program> logger, HttpResponse response) =>
 {
     logger.LogInformation("Testing logging in Ecommerce Backend Service");
-    await response.WriteAsync("Testing");
+    await response.WriteAsync("Yippie! Ecomm App Deployed on Azure");
 });
 
 app.Run();
