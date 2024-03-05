@@ -6,11 +6,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CourseWork.Models;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace CourseWork.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    // [Authorize(Roles = "Administrator")]
     public class CategoryController : ControllerBase
     {
         private readonly EcommerceContext _context;

@@ -9,20 +9,18 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.ConfigureLogging(logging =>
-{
-    logging.ClearProviders();
-    logging.AddConsole();
-});
-
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<EcommerceContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Connection")));
+
+// builder.Services.AddDbContext<EcommerceContext>(options =>
+//     options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
+
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<EcommerceContext>().AddDefaultTokenProviders();
@@ -95,3 +93,5 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
+
+// Checkingcommits

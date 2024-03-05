@@ -14,7 +14,7 @@ namespace CourseWork.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize(Roles = "Admin")]
+     [Authorize(Roles = "Administrator")]
     public class RolesController : ControllerBase
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -57,7 +57,7 @@ namespace CourseWork.Controllers
             if (user != null)
             {
                 // Check if the user is in the "Admin" role
-                return await _userManager.IsInRoleAsync(user, "Admin");
+                return await _userManager.IsInRoleAsync(user, "Administrator");
             }
 
             // Return false if the user doesn't exist or if an error occurred

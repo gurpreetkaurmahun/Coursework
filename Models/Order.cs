@@ -7,7 +7,7 @@ namespace CourseWork.Models
     public class Order
     {
         public int OrderId { get; set; }
-        [ForeignKey("Customer")]
+       
         public int CustomerId { get; set; }
         public Customer? Customer {get;set;}
 

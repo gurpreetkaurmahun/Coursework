@@ -8,7 +8,7 @@ namespace CourseWork.Models
         public int CartId { get; set; }
         public int CartTotal { get; set; }
 
-        [ForeignKey("Customer")]
+    
         public int CustomerId { get; set; }
         public Customer? Customer{get;set;}
        

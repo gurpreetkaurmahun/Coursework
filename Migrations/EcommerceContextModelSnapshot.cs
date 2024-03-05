@@ -32,7 +32,7 @@ namespace CourseWork.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("CourseWork.Models.Category", b =>
@@ -50,7 +50,7 @@ namespace CourseWork.Migrations
                     b.HasIndex("name")
                         .IsUnique();
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("CourseWork.Models.Customer", b =>
@@ -69,7 +69,7 @@ namespace CourseWork.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("CourseWork.Models.Order", b =>
@@ -90,7 +90,7 @@ namespace CourseWork.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("CourseWork.Models.OrderProduct", b =>
@@ -111,7 +111,7 @@ namespace CourseWork.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderProducts");
+                    b.ToTable("OrderProducts", (string)null);
                 });
 
             modelBuilder.Entity("CourseWork.Models.Product", b =>
@@ -142,7 +142,7 @@ namespace CourseWork.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
