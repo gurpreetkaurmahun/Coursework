@@ -6,6 +6,10 @@ on:
     branches:
       - main
 
+env:
+AZURE_WEBAPP_NAME: Web-Dev-2024
+AZURE_WEBAPP_PACKAGE_PATH: "./publish"
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -31,7 +35,14 @@ jobs:
         run: dotnet build CourseWork.csproj --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish CourseWork.csproj --configuration Release --no-build
+        run: dotnet publish CourseWork.csproj --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+
+       - name: Deployment
+        uses: actions/webapps-deploy@v2
+        with:
+        app-name: ${{env.AZURE_WEBAPP_NAME }}
+        publish-profile:''
+        package: "${{env.AZURE_WEBAPP_PACKAGE_PATH}}"
 
 
 
