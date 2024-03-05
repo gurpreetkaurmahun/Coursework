@@ -60,3 +60,7 @@ Gurpreet Kaur Mahun
 Acknowledgements:
 • Microsoft for providing the ASP.NET Core framework and related tools.
 • University Lectures in Web Development and Stack Overflow contributions and support.
+
+Azure Link: https://web-dev-2024.azurewebsites.net/Test 
+•/Test is for testing that it works
+
