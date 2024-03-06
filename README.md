@@ -29,7 +29,7 @@ API Documentation:
 
 
 
-Usage:
+Usage: On Postman
 • Product Management: CRUD-Add, remove, update and Delete products.
     • API endpoint: 'https://localhost:5299/api/Product'
     
