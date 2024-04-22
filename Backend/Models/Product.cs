@@ -16,7 +16,7 @@ namespace CourseWork.Models
         public int quantity { get; set; }
         
         [ForeignKey("Category")]
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         public Category? Category { get; set; }
        
         

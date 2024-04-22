@@ -26,6 +26,18 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<EcommerceContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Connection")));
 
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowReactApp",
+            builder =>
+            {
+                builder.WithOrigins("http://localhost:3000")
+                       .AllowAnyHeader()
+                       .AllowAnyMethod();
+            });
+    });
+
+
 // builder.Services.AddDbContext<EcommerceContext>(options =>
 //     options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
@@ -105,6 +117,8 @@ app.MapGet("/Test", async (ILogger<Program> logger, HttpResponse response) =>
     logger.LogInformation("Testing logging in Ecommerce Backend Service");
     await response.WriteAsync("Yippie! Ecomm App Deployed on Azure");
 });
+
+app.UseCors("AllowReactApp");
 
 app.Run();
 app.UseRouting();
