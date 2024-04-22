@@ -1,0 +1,230 @@
+.header {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+z-index: 1;
+/* box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.2); */
+}
+    
+    
+    
+.butt:hover{
+  font-size: 25px;
+  
+  background-color: rgb(250, 228, 231);
+  border-radius: 10%;
+}
+#image {
+opacity: 1;
+
+transition: .5s ease;
+backface-visibility: hidden;
+}
+#image:hover{
+  opacity: 0.2;
+}
+
+   
+
+#check:hover {
+  border-top: 10px solid black;
+}
+.arrival:hover{
+  text-shadow: 2px 2px grey; ;
+}
+.imageSlide{
+  box-shadow: 10px solid grey;
+}
+.imagetext{
+  width:400px;position:relative;bottom:400px;left:150px;color:black;
+}
+.product{border-top: 1px solid black; border-left: 1px solid black; margin-left: 20px; width: 400px; height: 500px;box-shadow: 5px 5px 5px gray; position: relative }
+.image1{width: 100%; height : 300px}
+.image2{width: 100%; height: 300px;position:absolute;left:0;top:0;opacity:0;transition: all 0.7s ease;}
+
+.image2:hover{opacity: 1}
+
+.small-product{border-top: 1px solid black; border-left: 1px solid black; margin-left: 20px; width: 200px; height: 250px;box-shadow: 5px 5px 5px gray; position: relative }
+.small-image1{width: 100%; height : 150px}
+.small-image2{width: 100%; height: 150px;position:absolute;left:0;top:0;opacity:0;transition: all 0.7s ease;border:1px solid green}
+
+.small-image2:hover{opacity: 1}
+
+.tabs {
+
+text-align: center;
+width: 60px;
+display:block;
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+/* border-radius: 0.2rem; */
+position: relative;
+left:0;
+height:50px;
+width:140px
+
+}
+.tabs:hover{
+transform: scale(0.9);
+transition: transform 0.5s ease;
+}
+    
+.active-tabs{
+    
+    border-bottom: 1px solid transparent;
+}
+.active-tabs::before {
+
+display:block;
+content:"";
+position: absolute;
+top: 20px;
+left:50%;
+transform:translateX(-50%);
+width:calc(100%+2px);
+height:5px;
+
+
+
+}
+.bloc-tabs {
+display: flex;
+}
+.content-tabs{
+  flex-grow: 1;
+  position: relative;
+
+  right:1330px
+ 
+ 
+
+}
+.right-content-tabs{
+  flex-grow: 2;
+  position: relative;
+
+  right:600px
+ 
+ 
+
+}
+.content {
+
+padding: 20px;
+display: none;
+
+
+}
+
+  .content>hr{
+      width:100px;
+      height:2px;
+      margin-bottom: 10px;
+      
+  }
+.content>p{
+    width:100%;
+    height:100%
+
+}
+.active-content {
+display: block;
+transition: left 0.5s ease;
+position: absolute;
+top:30px;
+background-color:rgb(250, 228, 231);
+transition: left 0.5s ease;
+padding: 10px;
+background-color: none;
+width: 600px;
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+z-index: 1
+
+
+}
+.right-active-content {
+  display: block;
+  transition: left 0.5s ease;
+  position: absolute;
+  top:30px;
+  background-color:rgb(250, 228, 231);
+  transition: left 0.5s ease;
+  padding: 10px;
+  background-color: none;
+  width: 300px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 1
+  
+  
+  }
+
+
+
+  /* {button?<div style={{width:600,display:"inline-block"}}> 
+   <Login AddProduct={addChange}  />
+  { loggedIn ? products.map((product,index)=>{
+     return <Product
+      key={index}
+      id={product.productId}
+      name={product.name}
+      price={product.price}
+      quantity={product.quantity}
+     
+      OnEdit={handleEdit}
+      
+      OnfavAdd={addToFavorites}
+      value={"Add to Wish"}
+      />
+  }): null}
+
+  {editProduct && (
+      <Modals
+      product={editProduct}
+      handleInputChange={handleInputChange}
+      handleSubmit={handleFormSubmit}
+      productId={editProduct.productId}
+     />
+  )} 
+ </div>:null}
+ 
+
+ {Reg?<About />:null} */
+   /* { <div style={{width:600,display:"inline-block"}}> 
+   <Login AddProduct={addChange}  />
+  { loggedIn ? products.map((product,index)=>{
+     return <Product
+      key={index}
+      id={product.productId}
+      name={product.name}
+      price={product.price}
+      quantity={product.quantity}
+     
+      OnEdit={handleEdit}
+      
+      OnfavAdd={addToFavorites}
+      value={"Add to Wish"}
+      />
+  }): null}
+
+  {editProduct && (
+      <Modals
+      product={editProduct}
+      handleInputChange={handleInputChange}
+      handleSubmit={handleFormSubmit}
+      productId={editProduct.productId}
+     />
+  )} 
+ </div> }
+
+{ <div class="list-group" style={{width:400,display:"inline-block",margin:200}}>
+<h1>Wishlist</h1>
+{fav.map((product,index)=>(<Product   key={index}
+      id={index}
+      name={product.name}
+      price={product.price}
+      quantity={product.quantity}
+      value={"remove" }
+      OnDelete={deleteFav}
+      />))}</div>}  */
+        
+        
