@@ -118,22 +118,23 @@ function handleEdit(id) {
 }
 
   return (
-    <div class="container marketing" style={{marginTop:700}}>
+    <div class="container marketing" style={{marginTop:100}}>
      <Link to="/NewArrivals"> <h1 class="arrival" style={{ textAlign: "center" }}>New Arrivals</h1></Link> 
 
 
       {products.slice(0,3).map((product, index) => (
-         <Link key={index} to={`/product/${product.productId}`}>
+        
     <Product key={index} 
     id={product.productId}
     name={product.name} 
     price={product.price}
+    LinkId={`/product/${product.productId}`}
     quantity={product.quantity}  
     value={"Add to Wish"} OnEdit={handleEdit} 
      OnfavAdd={addToFavorites} 
      onStyleOuter={design.outer}
      onStyleImage1={design.image1} 
-     onStyleImage2={design.image2} /></Link>
+     onStyleImage2={design.image2} />
   ))}
 
 {editProduct && (

@@ -1,3 +1,7 @@
+body{
+  background-color: none;
+}
+
 .header {
 position: fixed;
 top: 0;
@@ -39,16 +43,22 @@ backface-visibility: hidden;
 .imagetext{
   width:400px;position:relative;bottom:400px;left:150px;color:black;
 }
-.product{border-top: 1px solid black; border-left: 1px solid black; margin-left: 20px; width: 400px; height: 500px;box-shadow: 5px 5px 5px gray; position: relative }
+.product{border-top: 1px solid black; border-left: 1px solid black; margin-left: 10px; width: 400px; height: 500px;box-shadow: 5px 5px 5px gray; position: relative }
 .image1{width: 100%; height : 300px}
 .image2{width: 100%; height: 300px;position:absolute;left:0;top:0;opacity:0;transition: all 0.7s ease;}
 
 .image2:hover{opacity: 1}
 
-.small-product{border-top: 1px solid black; border-left: 1px solid black; margin-left: 20px; width: 200px; height: 250px;box-shadow: 5px 5px 5px gray; position: relative }
+.big-product{border-top: 1px solid black; border-left: 1px solid black; margin-left: 10px;width:1000; height: 500px;box-shadow: 5px 5px 5px gray; position: relative }
+.big-image1{width: 500px; height : 500px;display:inline-block;position:absolute}
+.big-image2{width: 500px; height : 500px;display:inline-block;position:absolute;left:270px}
+
+.small-product{border-top: 1px solid black; border-left: 1px solid black; margin-left: 20px; width: 200px; height: 350px;box-shadow: 5px 5px 5px gray; position: relative }
 .small-image1{width: 100%; height : 150px}
 .small-image2{width: 100%; height: 150px;position:absolute;left:0;top:0;opacity:0;transition: all 0.7s ease;border:1px solid green}
+.small-product >p{margin:0;padding:0}
 
+.small-Link{width:40px;height:20px}
 .small-image2:hover{opacity: 1}
 
 .tabs {
@@ -94,7 +104,7 @@ display: flex;
   flex-grow: 1;
   position: relative;
 
-  right:1330px
+  right:1600px
  
  
 

@@ -14,7 +14,7 @@ namespace CourseWork.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     public class RolesController : ControllerBase
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -36,7 +36,7 @@ namespace CourseWork.Controllers
         
 
         [HttpGet("{roleId}")]
-        public async Task<IActionResult> GetRole(string roleId)
+        public async Task<IActionResult> GetRole([FromQuery]string roleId)
         {
             var role = await _roleManager.FindByIdAsync(roleId);
 

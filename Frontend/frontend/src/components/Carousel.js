@@ -34,7 +34,7 @@ function updateTitle(){
 }
   return (
   
-      <div style={{ position: "relative", zIndex: 0 }}>
+      <div style={{ position: "relative", zIndex: 0,border:"2px solid green" }}>
         <div id="carouselExampleIndicators" className="carousel slide carousel-fade imageSlide" style={{height: 650}}>
           <div className="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>

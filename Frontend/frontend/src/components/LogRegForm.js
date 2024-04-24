@@ -5,7 +5,8 @@ import NavBar from "./Navbar";
 import { useState,useEffect } from "react";
 import axios from "axios";
 
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import {API_BASE_URL} from "../apiConfig";
 
@@ -68,6 +69,8 @@ function LogRegForm(props){
         Email:login.email,
         Password:login.password
       };
+
+      
       
       const logoutResponse = await axios.post(API_BASE_URL+'account/logout',postEmail.Email);
       if (logoutResponse.status === 200) {
@@ -90,7 +93,7 @@ function LogRegForm(props){
         [name]:value
       }
     })
-    console.log(register);
+    
    }
 
    async function VerifyEmail(event){
@@ -117,6 +120,7 @@ function LogRegForm(props){
     }
       
    }
+
 
 
  async function handleSubmit(event) {
@@ -159,9 +163,24 @@ function LogRegForm(props){
           Email:register.email,
           Password:register.password
         };
+
+        const customer={
+          customerId: 269,
+          name: register.Cname,
+          email: register.email
+        }
         
-        const response = await axios.post(API_BASE_URL+'account/register',postEmail);
-        console.log(response);
+        // const response = await axios.post(API_BASE_URL+'account/register',postEmail);
+        // const responseCustomer = await axios.post(API_BASE_URL+'Customer',customer);
+        // console.log(response);
+            
+    const [response, responseCustomer] = await Promise.all([
+      axios.post(API_BASE_URL + 'account/register', postEmail),
+      axios.post(API_BASE_URL + 'customer', customer)
+    ]);
+
+    console.log(response);
+    console.log(responseCustomer);
         if(response.data.userId){
           setLogin(prevlogin=>({
             ...prevlogin,
@@ -172,7 +191,7 @@ function LogRegForm(props){
  }catch(error){
   
         
-        console.log("Error is: INVALID CREDENTISLS");
+        console.log("Error is: INVALID CREDENTISLS",error);
       }}
 
       

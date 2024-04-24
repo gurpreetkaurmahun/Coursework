@@ -4,9 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import axios from "axios";
 import {API_BASE_URL} from "../apiConfig";
 import Product from "./product";
-import Login from "./Login";
-import NavBar from "./Navbar";
-import Header from "./header";
+
 import ProductForm from "./ProductForm";
 import About from "./About";
 import Modals from "./Modals";
@@ -18,7 +16,7 @@ import LogRegForm from "./LogRegForm";
 
 import Home from"./Home";
 import"./Style.css";
-import 'bootswatch/dist/morph/bootstrap.min.css';
+
 
 function Application(){
 
@@ -183,3 +181,5 @@ function Application(){
 }
 
 export default Application;
+
+// Map Login widget pagination abouit content single product zoom in zoom out

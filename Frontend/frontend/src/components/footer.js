@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 function Footer() {
-  return <div style={{border:"2px solid red",width:"100%"}}>
+  return <div style={{width:"100%"}}>
   <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">

@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+import {API_BASE_URL} from "../apiConfig";
 
 function Registration(props){
     return  <div  > <form onSubmit={props.OnSubmit}  >
@@ -10,7 +12,7 @@ function Registration(props){
  
    
     <label for="staticName" class="col-sm-2 col-form-label"  style={{width:500,marginLeft:50}} >Customer Name</label>
-    <input onChange={props.OnChangeReg} name="CName"type="text" class="form-control" id="staticName" placeholder="Enter Name"value={props.Cname} style={{width:500,marginLeft:50}}  ></input>
+    <input onChange={props.OnChangeReg} name="Cname"type="text" class="form-control" id="staticName" placeholder="Enter Name"value={props.Cname} style={{width:500,marginLeft:50}}  ></input>
     
   </div>
   <div>
@@ -26,7 +28,7 @@ function Registration(props){
   </div>
   <div>
     <label for="exampleInputPassword2" class="form-label mt-4"  style={{width:500,marginLeft:50}} >Confirm Password</label>
-    <input onChange={props.OnChangeReg} name="password"type="password" class="form-control" id="exampleInputPassword2" placeholder="ConfirmPassword"  style={{width:500,marginLeft:50}}  autocomplete="off" value={props.confirmPassword} ></input>
+    <input onChange={props.OnChangeReg} name="password1"type="password" class="form-control" id="exampleInputPassword2" placeholder="ConfirmPassword"  style={{width:500,marginLeft:50}}   value={props.confirmPassword} ></input>
   </div>
  
 
