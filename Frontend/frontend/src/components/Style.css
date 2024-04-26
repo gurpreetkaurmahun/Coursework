@@ -495,7 +495,7 @@ z-index: 1
 .big-image2{width: 200px; height : 250px;display:inline-block;position:absolute;left:110px;box-shadow: 5px 5px 5px gray}
 .big-image3{width: 200px; height : 250px;display:block;position:absolute;top:260px;left:-100px;box-shadow: 5px 5px 5px gray}
 
-.big-detail{width: 250px; left:225px;display:inline-block;position:absolute;top:100px;border-top: 1px solid black;height:400px}
+.big-detail{width: 250px; left:225px;display:inline-block;position:absolute;top:300px;border-top: 1px solid black;height:400px}
 .likeproduct{margin-top:600px;width:50%}
 
 
