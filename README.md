@@ -54,6 +54,18 @@ Usage: On Postman
 • Account Management: Login, logout, verify email, register user and generate JWT token.
   • API endpoint: https://localhost:5299/api/Account
 
+Frontend: The frontend, developed using React, ReactDOM, AOS (Animate On Scroll) from React, and Bootstrap, provides a user-friendly interface for interacting with the ecommerce platform.
+
+Browser Routes
+In the frontend of the ecommerce platform, browser routes are defined using React Router, a powerful routing library for React applications. These routes map specific URL paths to corresponding React components, allowing for dynamic content rendering based on the current URL.
+
+• Home: Route '/' - Renders the Home component, displaying the homepage of the ecommerce platform.
+• About: Route '/About' - Renders the About component, providing information about the ecommerce platform
+• Login: Route '/Login' - Renders the LogRegForm component, allowing users to log in to their accounts or register for a new account if they don't have one already.
+• New Arrivals: Route '/NewArrivals' - Renders the AllProducts component, displaying a list of new arrivals or recently added products in the store. 
+• All Products: Route '/product' - Renders the AllProducts component, showing a comprehensive list of all available products in the store
+• Single Product: Route '/Product/:id' - Renders the SingleProduct component, displaying detailed information about a specific product identified by its unique ID.
+
 Authors:
 Gurpreet Kaur Mahun
 
