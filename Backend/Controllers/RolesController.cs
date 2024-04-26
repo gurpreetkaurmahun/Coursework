@@ -36,7 +36,7 @@ namespace CourseWork.Controllers
         
 
         [HttpGet("{roleId}")]
-        public async Task<IActionResult> GetRole(string roleId)
+        public async Task<IActionResult> GetRole([FromQuery]string roleId)
         {
             var role = await _roleManager.FindByIdAsync(roleId);
 

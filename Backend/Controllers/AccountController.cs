@@ -35,6 +35,8 @@ namespace CourseWork.Controllers
             _tokenRevocation=tokenRevocation;
         }
 
+
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(AuthModel model)
         {
@@ -43,6 +45,7 @@ namespace CourseWork.Controllers
 
             if (result.Succeeded)
             {
+                var userId = user.Id;
                 // Generate an email verification token
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
@@ -54,7 +57,7 @@ namespace CourseWork.Controllers
                 var emailBody = $"Please verify your email by clicking the following link: {verificationLink}";
                 _emailService.SendEmail(user.Email, emailSubject, emailBody);
                
-                return Ok("User registered successfully. An email verification link has been sent.");
+                return Ok(new { UserId = userId, Message = "User registered successfully. An email verification link has been sent." });
             }
 
             return BadRequest(result.Errors);
@@ -87,8 +90,15 @@ namespace CourseWork.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(AuthModel model)
         {
+               var checkuser = await _userManager.FindByEmailAsync(model.Email);
+    
+                if (checkuser == null)
+                {
+            
+                    return NotFound("User not found. Please register using the provided email and password.");
+                }
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: false, lockoutOnFailure: false);
-
+            
             if (result.Succeeded)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
@@ -109,7 +119,7 @@ namespace CourseWork.Controllers
                 _tokenRevocation.RevokeToken(userEmail);
             }
             await _signInManager.SignOutAsync();
-            return Ok(new { message = $"User with Email {userEmail}" });
+            return Ok(new { message = $"User with Email {userEmail} logged out" });
         }
         private string GenerateJwtToken(IdentityUser user, IList<string> roles)
         {
@@ -139,7 +149,7 @@ namespace CourseWork.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        [HttpDelete]
+        [HttpDelete("{userId}")]
         public async Task<IActionResult> DeleteAccount(string userId)
         {
             // Find the user by user ID
